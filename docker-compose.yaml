@@ -1,0 +1,7 @@
+version: "3"
+services: 
+   api: 
+     build: ./
+     image: dalongrong/golang-supervisord
+     ports: 
+     - "8080:8080"
