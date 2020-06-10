@@ -11,7 +11,7 @@ RUN apk update && apk add git \
 FROM alpine:latest
 WORKDIR /app
 RUN  /bin/sed -i 's,http://dl-cdn.alpinelinux.org,https://mirrors.aliyun.com,g' /etc/apk/repositories
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+RUN apk update && apk add ca-certificates && apk add  --no-cache tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone && rm -rf /var/cache/apk/*
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 COPY --from=build-env /go/src/app/rest-api /app/rest-api
 COPY supervisor.conf /etc/supervisord.conf
